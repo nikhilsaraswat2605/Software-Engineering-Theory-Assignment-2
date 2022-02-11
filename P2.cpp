@@ -3,49 +3,53 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
+// customer class
 class Customer
 {
     string name;
     int id;
-    static int NumCustomer;
+    static int NumCustomer; // just for uniqueness of customer IDs
 
 public:
-    Customer(string name = "NA")
+    Customer(string name = "NA") // constructor
     {
         this->name = name;
         this->id = ++NumCustomer;
     }
+    // destructor
     ~Customer() {}
-    friend ostream &operator<<(ostream &os, const Customer &cust)
+    friend ostream &operator<<(ostream &os, const Customer &cust) // output stream
     {
         os << "customer id: " << cust.id << ", "
            << "customer name: " << cust.name << "\n";
         return os;
     }
-    friend istream &operator>>(istream &is, Customer &cust)
+    friend istream &operator>>(istream &is, Customer &cust) // input stream
     {
         is >> cust.name;
         return is;
     }
 };
+// customer class
 class ProductItem
 {
     string title;
     int id;
-    static int NumProductItem;
+    static int NumProductItem;// just for uniqueness of ProductItem IDs
     float price;
     int copies;
 
 public:
-    ProductItem(string title = "NA", float price = 0)
+    ProductItem(string title = "NA", float price = 0)// constructor
     {
         this->title = title;
         this->price = price;
         this->id = ++NumProductItem;
         this->copies = 0;
-    };
+    }
+    // destructor
     ~ProductItem() {}
-    friend ostream &operator<<(ostream &os, const ProductItem &pi)
+    friend ostream &operator<<(ostream &os, const ProductItem &pi)// output stream
     {
         os << "Product id: " << pi.id << ", "
            << "Produt title: " << pi.title << ", "
