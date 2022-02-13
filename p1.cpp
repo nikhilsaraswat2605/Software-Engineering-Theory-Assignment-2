@@ -36,17 +36,17 @@ public:
                 return;
             }
         }
-        if (nStored == 0)
+        if (this->nStored == 0)
         {
-            int startindex = nStored;
+            int startindex = this->nStored;
             int startval;
-            if (nStored == 0)
+            if (this->nStored == 0)
                 startval = 2;
             else
-                startval = primes[nStored - 1] + 1;
+                startval = this->primes[this->nStored - 1] + 1;
             for (int i = startval; i * i <= n; i++)
             {
-                if (nStored == bufsize)
+                if (this->nStored == this->bufsize)
                 {
                     cout << "error in calculation, buffersize is not sufficient"
                          << "\n";
@@ -54,20 +54,20 @@ public:
                 }
                 for (int j = 0; j < this->nStored; j++)
                 {
-                    if (primes[j] * primes[j] > i)
+                    if (this->primes[j] * this->primes[j] > i)
                     {
                         break;
                     }
-                    if (i % primes[j] == 0)
+                    if (i % this->primes[j] == 0)
                     {
                         break;
                     }
                 }
-                primes[nStored++] = i;
+                this->primes[nStored++] = i;
             }
-            for (int i = startindex; i < nStored; i++)
+            for (int i = startindex; i < this->nStored; i++)
             {
-                if (n % primes[i] == 0)
+                if (n % this->primes[i] == 0)
                 {
                     cout << n << " is a composite number"
                          << "\n";
