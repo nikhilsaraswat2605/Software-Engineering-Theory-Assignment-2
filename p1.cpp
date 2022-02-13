@@ -2,20 +2,21 @@
 using namespace std;
 class PrimalityTest
 {
-    static PrimalityTest *_myTest;
-    int nStored; // Number of Stored Primes
-    int *primes; // Pointer to Buffer
-    int bufsize; // Size of the buffer
-    PrimalityTest(int bufsize)
+    static PrimalityTest *_myTest; // static pointer object of the class PrimalityTest
+    int nStored;                   // Number of Stored Primes
+    int *primes;                   // Pointer to Buffer
+    int bufsize;                   // Size of the buffer
+
+    PrimalityTest(int bufsize) // constructor
     {
         this->nStored = 0;
         this->bufsize = bufsize;
-        this->primes = new int[100];
-    } // Implement
-    ~PrimalityTest()
+        this->primes = new int[bufsize]; // allocating memory for buffer array
+    }                                    // Implement
+    ~PrimalityTest()                     // destructor
     {
-        delete[] primes;
-    } // Implement
+        delete[] primes; // de-allocating memory for the primes arraY (buffer array)
+    }                    // Implement
 public:
     static PrimalityTest &newTest(int bufsize = 100)
     {
