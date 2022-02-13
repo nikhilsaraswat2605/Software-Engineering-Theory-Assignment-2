@@ -6,9 +6,9 @@ using namespace std;
 // customer class
 class Customer
 {
-    string name;
-    int id;
-    static int NumCustomer; // just for uniqueness of customer IDs
+    string name;            // name of the customer as a string
+    int id;                 // ID of the customer as an int
+    static int NumCustomer; // just for uniqueness of customer IDs, because this will be declared once only, and will be changed again and again
 
 public:
     Customer(string name = "NA") // constructor
@@ -16,8 +16,8 @@ public:
         this->name = name;
         this->id = ++NumCustomer;
     }
-    // destructor
-    ~Customer()
+
+    ~Customer() // destructor
     {
         cout << *this << "- destructed" << endl;
     }
@@ -36,11 +36,11 @@ public:
 // ProductItem class
 class ProductItem
 {
-    string title;
-    int id;
-    static int NumProductItem; // just for uniqueness of ProductItem IDs
-    float price;
-    int copies;
+    string title;              // title of the Product Item as a string
+    int id;                    // Id of the Product Item as an int
+    static int NumProductItem; // just for uniqueness of ProductItem IDs, because this will be declared once only, and will be changed again and again
+    float price;               // price of the Product Item as a floating point number
+    int copies;                // number of copies of the Product Item as an int
 
 public:
     ProductItem(string title = "NA", float price = 0) // constructor
@@ -50,8 +50,8 @@ public:
         this->id = ++NumProductItem;
         this->copies = 0;
     }
-    // destructor
-    ~ProductItem()
+
+    ~ProductItem() // destructor
     {
         cout << *this << "- destructed" << endl;
     }
@@ -85,10 +85,10 @@ public:
 // Order class
 class Order
 {
-    int id;
-    static int NumOrder; // just for uniqueness of Order IDs
-    Customer c;
-    vector<ProductItem> prods;
+    int id;                    // ID of the order as an int
+    static int NumOrder;       // just for uniqueness of Order IDs, because this will be declared once only, and will be changed again and again
+    Customer c;                // customer who have ordered this order
+    vector<ProductItem> prods; // vector of the product items which have been ordered by the customer c
 
 public:
     Order(Customer &in_c) // constructor
@@ -96,8 +96,8 @@ public:
         this->c = in_c;
         this->id = ++NumOrder;
     }
-    // destructor
-    ~Order()
+
+    ~Order() // destructor
     {
         this->c.~Customer();
         this->prods.clear();
@@ -134,10 +134,10 @@ public:
 // ShoppingBasket class
 class ShoppingBasket
 {
-    int id;
-    static int NumBasket; // just for uniqueness of NumBasket IDs
-    Customer c;
-    list<Order> orders;
+    int id;               // ID of Shopping Basket as an int
+    static int NumBasket; // just for uniqueness of NumBasket IDs, because this will be declared once only, and will be changed again and again
+    Customer c;           // customer who has ordered his orders in this Shopping Basket
+    list<Order> orders;   // list of the orders which have been ordered by the customer c
 
 public:
     ShoppingBasket(Customer &in_c) // constructor
@@ -145,8 +145,8 @@ public:
         this->c = in_c;
         this->id = ++NumBasket;
     }
-    // destructor
-    ~ShoppingBasket()
+
+    ~ShoppingBasket() // destructor
     {
         this->c.~Customer();
         this->orders.clear();
@@ -190,7 +190,8 @@ public:
         return *this;
     }
 };
-// initializing the static variables with 0
+
+// initializing all the static variables with 0
 int Customer::NumCustomer = 0;
 int ProductItem::NumProductItem = 0;
 int Order::NumOrder = 0;
@@ -211,7 +212,9 @@ int main()
     // create a shopping basket
     ShoppingBasket *s = new ShoppingBasket(*c);
     ShoppingBasket &shop = *s;
+    // added an order in the shop
     shop = shop + oref;
+    // deleted an order from the shop
     shop = shop - oref.getid();
     return 0;
 }
