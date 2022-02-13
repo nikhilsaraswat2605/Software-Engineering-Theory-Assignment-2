@@ -19,6 +19,7 @@ class PrimalityTest
 public:
     static PrimalityTest &newTest(int bufsize = 100)
     {
+
         if (!_myTest)
         {
             _myTest = new PrimalityTest(bufsize);
@@ -53,7 +54,7 @@ public:
         {
             if (this->nStored == this->bufsize)
             {
-                cout << "error in calculation of primality test of " << n << ", buffersize is not sufficient"
+                cout << "error in calculation of primality test of " << n << ", buffer-size is not sufficient"
                      << "\n";
                 return;
             }
