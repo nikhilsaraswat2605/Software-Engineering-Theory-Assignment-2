@@ -17,11 +17,14 @@ public:
         this->id = ++NumCustomer;
     }
     // destructor
-    ~Customer() {}
+    ~Customer()
+    {
+        cout << *this << "- destructed" << endl;
+    }
     friend ostream &operator<<(ostream &os, const Customer &cust) // output stream
     {
         os << "customer id: " << cust.id << ", "
-           << "customer name: " << cust.name << "\n";
+           << "customer name: " << cust.name << " ";
         return os;
     }
     friend istream &operator>>(istream &is, Customer &cust) // input stream
@@ -48,13 +51,16 @@ public:
         this->copies = 0;
     }
     // destructor
-    ~ProductItem() {}
+    ~ProductItem()
+    {
+        cout << *this << "- destructed" << endl;
+    }
     friend ostream &operator<<(ostream &os, const ProductItem &pi) // output stream
     {
         os << "Product id: " << pi.id << ", "
            << "Produt title: " << pi.title << ", "
            << "Produt price: " << pi.price << ", "
-           << "Produt copies: " << pi.copies << "\n";
+           << "Produt copies: " << pi.copies << " ";
         return os;
     }
     friend istream &operator>>(istream &is, ProductItem &pi) // input stream
@@ -91,7 +97,12 @@ public:
         this->id = ++NumOrder;
     }
     // destructor
-    ~Order() {}
+    ~Order()
+    {
+        this->c.~Customer();
+        this->prods.clear();
+        cout << *this << " - destructed" << endl;
+    }
     int getid() // for accessing ID of the object
     {
         return this->id;
@@ -99,7 +110,7 @@ public:
     friend ostream &operator<<(ostream &os, const Order &o) // output stream
     {
         os << "Order id: " << o.id << ", "
-           << "Customer-> " << o.c << "\n";
+           << "Customer-> " << o.c << " ";
         return os;
     }
     friend istream &operator>>(istream &is, Order &o) // input stream
@@ -135,11 +146,16 @@ public:
         this->id = ++NumBasket;
     }
     // destructor
-    ~ShoppingBasket() {}
+    ~ShoppingBasket()
+    {
+        this->c.~Customer();
+        this->orders.clear();
+        cout << *this << "- destructed" << endl;
+    }
     friend ostream &operator<<(ostream &os, const ShoppingBasket &sb) // output stream
     {
-        os << "Shop id: " << sb.id << ", "
-           << "Customer-> " << sb.c << "\n";
+        os << "ShopBasket id: " << sb.id << ", "
+           << "Customer-> " << sb.c << " ";
         return os;
     }
     friend istream &operator>>(istream &is, ShoppingBasket &sb) // input stream
@@ -185,7 +201,7 @@ int main()
     // create a customer
     Customer *c = new Customer("Nikhil");
     // create a product
-    cout << *c;
+    cout << *c << endl;
     ProductItem *p = new ProductItem("Something");
     // create an Order
     Order *o = new Order(*c);
