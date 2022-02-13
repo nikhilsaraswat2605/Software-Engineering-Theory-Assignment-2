@@ -54,11 +54,7 @@ public:
                 }
                 for (int j = 0; j < this->nStored; j++)
                 {
-                    if (this->primes[j] * this->primes[j] > i)
-                    {
-                        break;
-                    }
-                    if (i % this->primes[j] == 0)
+                    if (this->primes[j] * this->primes[j] > i || i % this->primes[j] == 0)
                     {
                         break;
                     }
