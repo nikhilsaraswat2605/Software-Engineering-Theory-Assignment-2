@@ -29,6 +29,12 @@ public:
     {
         for (int i = 0; i < this->nStored; i++)
         {
+            if (this->primes[i] * this->primes[i] > n)
+            {
+                cout << n << " is a prime number!"
+                     << "\n";
+                return;
+            }
             if (n % this->primes[i] == 0)
             {
                 cout << n << " is a composite number"
@@ -36,52 +42,65 @@ public:
                 return;
             }
         }
+
+        int startindex = this->nStored;
+        int startval;
         if (this->nStored == 0)
+            startval = 2;
+        else
+            startval = this->primes[this->nStored - 1] + 1;
+        for (int i = startval; i * i <= n; i++)
         {
-            int startindex = this->nStored;
-            int startval;
-            if (this->nStored == 0)
-                startval = 2;
-            else
-                startval = this->primes[this->nStored - 1] + 1;
-            for (int i = startval; i * i <= n; i++)
+            if (this->nStored == this->bufsize)
             {
-                if (this->nStored == this->bufsize)
-                {
-                    cout << "error in calculation, buffersize is not sufficient"
-                         << "\n";
-                    return;
-                }
-                for (int j = 0; j < this->nStored; j++)
-                {
-                    if (this->primes[j] * this->primes[j] > i || i % this->primes[j] == 0)
-                    {
-                        break;
-                    }
-                }
-                this->primes[nStored++] = i;
+                cout << "error in calculation of primality test of " << n << ", buffersize is not sufficient"
+                     << "\n";
+                return;
             }
-            for (int i = startindex; i < this->nStored; i++)
+            bool flag = 0;
+            for (int j = 0; j < this->nStored; j++)
             {
-                if (n % this->primes[i] == 0)
+                if (i % this->primes[j] == 0)
                 {
-                    cout << n << " is a composite number"
-                         << "\n";
-                    // this->primes[this->nStored++] = n;
-                    return;
+                    flag = 1;
+                    break;
                 }
+                else if (this->primes[j] * this->primes[j] > i)
+                {
+                    break;
+                }
+            }
+            if (flag)
+                continue;
+            this->primes[nStored++] = i;
+        }
+        for (int i = startindex; i < this->nStored; i++)
+        {
+            if (n % this->primes[i] == 0)
+            {
+                cout << n << " is a composite number"
+                     << "\n";
+                return;
             }
         }
 
         cout << n << " is a prime number!"
              << "\n";
     } // Implement
+    void printprime()
+    {
+        for (int i = 0; i < nStored; i++)
+        {
+            cout << primes[i] << endl;
+        }
+    }
 };
 PrimalityTest *PrimalityTest::_myTest = NULL;
 int main()
 {
     PrimalityTest::newTest().test(2958);
     PrimalityTest::newTest().test(823);
-    PrimalityTest::newTest().test(83479);
+    PrimalityTest::newTest().test(10000007);
+
     return 0;
 }
