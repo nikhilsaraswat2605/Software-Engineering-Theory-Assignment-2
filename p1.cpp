@@ -30,6 +30,12 @@ public:
     } // Implement
     void test(int n)
     {
+        if (n < 2)
+        {
+            cout << n << " is neither a prime nor a composite number!"
+                 << "\n";
+            return;
+        }
         for (int i = 0; i < this->nStored; i++) // first try to check primality using stored primes of the buffer array
         {
             if (this->primes[i] * this->primes[i] > n) // if our buffer array has not been exhausted and any of the available primes are not able to divide the given number 'n', then declare n as a 'prime' number
@@ -105,7 +111,7 @@ int main()
     PrimalityTest::newTest().test(2958); // this time we are first calling newTest, so it will static object of the PrimalityTest class
     // now we are again calling newTest, but now this will not allocate meory for new object, but return the previously created object of the PrimalityTest class
     PrimalityTest::newTest().test(823);
-    PrimalityTest::newTest().test(10000007);
+    PrimalityTest::newTest().test(83479);
 
     return 0;
 }
